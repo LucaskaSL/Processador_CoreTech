@@ -29,6 +29,19 @@ module memory (
         end
     end
 
+    //para instrucoes de teste
+    initial begin
+        //inicializa memoria
+        integer i;
+        for (i=0; i<64; i=i +1) begin
+            mem_array[i] = 32'h0000000;
+        end
+        //exemplo:
+        // mem_array[0] = 32'h00000000; // Endereço 0x00
+        // mem_array[1] = 32'h01000000; // Endereço 0x04
+
+    
+    end
 
 
 
