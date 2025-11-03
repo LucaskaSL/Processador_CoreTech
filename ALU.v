@@ -11,12 +11,12 @@ module ALU(
     always @(*) begin
         if(clk == 1) begin
             case (ALUOperation)
-                4'b0000: ALUResult = A & B;          // AND
-                4'b0001: ALUResult = A | B;          // OR
-                4'b0010: ALUResult = A + B;          // Soma
-                4'b0110: ALUResult = A - B;          // Subtração
-                4'b0111: ALUResult = (A < B) ? 1 : 0; // SLT (Set Less Than)
-                4'b1100: ALUResult = ~(A | B);       // NOR
+                4'b1011: ALUResult = A & B;          // opcode 0x0B -> AND
+                4'b1100: ALUResult = A | B;          // opcode 0x0C -> OR
+                4'b1001: ALUResult = A + B;          // opcode 0x09 -> Soma
+                4'b1010: ALUResult = A - B;          // opcode 0x0A -> Subtração
+                //4'b0111: ALUResult = (A < B) ? 1 : 0; // SLT (Set Less Than)
+                //4'b1100: ALUResult = ~(A | B);       // NOR
                 default: ALUResult = 32'b0;          // Operação inválida
             endcase
         end
