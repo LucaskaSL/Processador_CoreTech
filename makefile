@@ -13,7 +13,7 @@ all: sim
 # compila e simula
 sim:
 	@echo "🔧 Compilando com iverilog..."
-	iverilog -o $(OUTPUT) $(SRC)
+	iverilog -g2012 -o $(OUTPUT) $(SRC)
 	@echo "▶️ Executando simulação..."
 	vvp $(OUTPUT)
 
