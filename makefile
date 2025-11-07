@@ -1,31 +1,34 @@
-# Nome do arquivo de saída
-OUTPUT = sim.out
+# Variáveis
+IVERILOG = iverilog
+VVP = vvp
+GTKWAVE = gtkwave
+DUT = simulacao.v
+EXEC = sim.vvp
+VCD = sim.vcd
 
-# arquivos Verilog (procura todos na pasta atual e em subpastas)
-SRC = $(shell find . -name "*.v")
+CLEAN_CMD = rm -f
 
-# arquivo de teste (caso exista)
-TB = tb_top.v
+ifeq ($(OS),Windows_NT)
+	CLEAN_CMD = del /f /q 2>nul
+endif
+# Regras
+.PHONY: all sim run view clean
 
-# Regra padrão
-all: sim
+# Regra principal
+all: clean sim run view
 
-# compila e simula
-sim:
-	@echo "🔧 Compilando com iverilog..."
-	iverilog -o $(OUTPUT) $(SRC)
-	@echo "▶️ Executando simulação..."
-	vvp $(OUTPUT)
+# Compila o testbench e gera o executável da simulação
+sim: $(DUT)
+	$(IVERILOG) -o $(EXEC) $(DUT)
 
-# ver onda (se dump.vcd existir)
-wave:
-	@if [ -f dump.vcd ]; then \
-		echo "🔍 Abrindo GTKWave..."; \
-		gtkwave dump.vcd & \
-	else \
-		echo "⚠️ Nenhum arquivo dump.vcd encontrado. Rode 'make sim' primeiro."; \
-	fi
+# Executa a simulação para gerar o arquivo .vcd
+run: $(EXEC)
+	$(VVP) $(EXEC)
 
-# limpa arquivos gerados
+# Abre o GTKWave para visualizar o arquivo .vcd
+view: $(VCD)
+	$(GTKWAVE) $(VCD)
+
+# Limpa os arquivos gerados
 clean:
-	rm -f $(OUTPUT) dump.vcd
+	$(CLEAN_CMD) $(EXEC) $(VCD)

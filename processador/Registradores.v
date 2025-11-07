@@ -2,14 +2,14 @@ module Registradores(
     input wire [3:0] ReadRegister1,  // Endereço do registrador para leitura 1
     input wire [3:0] ReadRegister2,  // Endereço do registrador para leitura 2
     input wire [3:0] WriteRegister,  // Endereço do registrador para escrita
-    input wire [32:0] WriteData,     // Dados a serem escritos
+    input wire [31:0] WriteData,     // Dados a serem escritos
     input wire RegWrite,             // Habilitação de escrita
     input wire clock,                // sincronizar com o clock do sistema
-    output wire [32:0] ReadData1,    // Dados lidos do registrador 1
-    output wire [32:0] ReadData2     // Dados lidos do registrador 2
+    output wire [31:0] ReadData1,    // Dados lidos do registrador 1
+    output wire [31:0] ReadData2     // Dados lidos do registrador 2
 );
 
-    // Banco de registradores: 32 registradores de 32 bits
+    // Banco de registradores: 16 registradores de 32 bits
     reg [31:0] registers [15:0];
 
     // Inicialização dos registradores (opcional, apenas para simulação)
