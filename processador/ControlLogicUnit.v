@@ -20,7 +20,7 @@ module ControlLogicUnit(
                 MemWrite = 0;
                 ALUSrc   = 1;
                 RegWrite = 1;
-                RegToReg = 0;
+                RegToReg = 1;
                 Halt     = 0;
                 end
             8'h01: begin // mov reg
